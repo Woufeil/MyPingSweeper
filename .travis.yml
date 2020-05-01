@@ -14,11 +14,9 @@ after_success:
 
 deploy:
   provider: releases
-  api_key: OAUTH-KEY
+  api_key: OAUTHKEY
   file:
     - mypingsweeper.py
     - requirements.txt
   draft: true
   skip_cleanup: true
-  on:
-    tags: true
