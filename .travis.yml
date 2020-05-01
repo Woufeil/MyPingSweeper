@@ -22,3 +22,5 @@ deploy:
     - requirements.txt
   draft: true
   skip_cleanup: true
+  on:
+    tags: true
