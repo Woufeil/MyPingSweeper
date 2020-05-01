@@ -1,9 +1,24 @@
 language: python
+
 python:
   - 3.8
+
 instal:
   - pip install -r requirements.txt
+
 script: 
   - pytest unit_test.py
+
 after_success:
   - codecov # submit coverage
+
+deploy:
+  provider: releases
+  api_key: OAUTH-KEY
+  file:
+    - mypingsweeper.py
+    - requirements.txt
+  draft: true
+  skip_cleanup: true
+  on:
+    tags: true
