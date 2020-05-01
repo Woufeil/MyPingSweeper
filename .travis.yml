@@ -3,6 +3,8 @@ language: python
 python:
   - 3.8
 
+cache: pip
+
 instal:
   - pip install -r requirements.txt
 
@@ -14,7 +16,7 @@ after_success:
 
 deploy:
   provider: releases
-  api_key: OAUTHKEY
+  api_key: $OAUTHKEY
   file:
     - mypingsweeper.py
     - requirements.txt
