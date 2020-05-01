@@ -1,0 +1,9 @@
+language: python
+python:
+  - 3.8
+instal:
+  - pip install -r requirements.txt
+script: 
+  - pytest unit_test.py
+after_success:
+  - codecov # submit coverage
