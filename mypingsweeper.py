@@ -2,6 +2,7 @@ import asyncio
 import ipaddress
 import re
 import json
+import sys
 import platform
 
 def init_json():
@@ -14,7 +15,7 @@ def init_json():
 
 async def ipchecker(queue,ip):
     """ Check reachability of one IP and put the result into the queue 
-        IP is an IP Network object """
+        IP is an IPv4Network object """
     
     cmd = ''
     encod = ''
@@ -68,7 +69,7 @@ async def gatherer(queue):
 
 async def arun(net):
     """ Init a queue and launch the coroutines  
-    net is an IP Network object """
+    net is an IPv4Network object """
     queue = asyncio.Queue()
 
     ipcheckers = [asyncio.create_task(ipchecker(queue,ip))
@@ -86,9 +87,9 @@ async def arun(net):
     g.cancel()
 
 
-def main():
+def main(netstr):
     try:
-        net = ipaddress.ip_network("192.168.1.0/27")
+        net = ipaddress.ip_network(netstr)
     except ValueError:
         print("Not a valid IP network")
         exit(1)
@@ -97,5 +98,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) == 1:
+        main("191.168.1.0/27")
+    elif len(sys.argv) == 2:
+        main(sys.argv[1])
+    else:
+        print("Invalid number of arguments")
+        exit(1)
 
